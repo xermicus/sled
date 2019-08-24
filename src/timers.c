@@ -95,12 +95,12 @@ timer timer_get(void) {
 	// Find the soonest/smallest timer.
 	int smallest = 0;
 	ulong min = TIMERS[0].time;
-	if (timer_count > 1)
-		for (int i = 1; i < timer_count; i++)
-			if (min > TIMERS[i].time) {
-				smallest = i;
-				min = TIMERS[i].time;
-			}
+	for (int i = 1; i < timer_count; i++) {
+		if (min > TIMERS[i].time) {
+			smallest = i;
+			min = TIMERS[i].time;
+		}
+	}
 
 	// Keep it.
 	t = TIMERS[smallest];
@@ -110,6 +110,9 @@ timer timer_get(void) {
 		for (int i = 0; i < timer_count; i++)
 			if (i != smallest)
 				asl_clearav(&TIMERS[i].args);
+		timer_count = 0;
+	} else
+	if (timer_count==1) {
 		timer_count = 0;
 	} else {
 		// Move things back.
