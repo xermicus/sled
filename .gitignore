@@ -4,6 +4,7 @@ sledconf
 # build output
 *.o
 *.so
+*.a
 /modules
 sled
 sled.fish
